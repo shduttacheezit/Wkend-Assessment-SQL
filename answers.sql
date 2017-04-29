@@ -325,3 +325,27 @@ The correct result set is:
 
 
 SELECT brand_id FROM models GROUP BY brand_id HAVING COUNT(*) > 5;
+
+
+==========
+14
+
+-----
+
+Using a subquery, select the name and year of any model whose
+year is the same year that ANY brand was founded.
+
+The result set should be:
+
+   name    | year
+-----------+------
+ Imperial  | 1926
+ Corvette  | 1953
+ Corvette  | 1954
+ Fleetwood | 1954
+(4 rows)
+
+-----
+
+
+SELECT DISTINCT models.name, models.year FROM models WHERE models.year IN (SELECT founded FROM brands) ORDER BY models.year ASC; 
